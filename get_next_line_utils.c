@@ -6,7 +6,7 @@
 /*   By: akalican <akalican@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:30:53 by akalican          #+#    #+#             */
-/*   Updated: 2023/10/20 16:45:02 by akalican         ###   ########.fr       */
+/*   Updated: 2023/10/23 11:57:24 by akalican         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,22 @@ size_t	ft_strlen(char *str)
 	return (i);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr(char *s, int c)
 {
-	while (*s != (char)c)
-		if (!*s++)
-			return (0);
-	return ((char *)s);
+	int	i;
+
+	i = 0;
+	if (!s)
+		return (0);
+	if (c == '\0')
+		return ((char *)&s[ft_strlen(s)]);
+	while (s[i] != '\0')
+	{
+		if (s[i] == (char) c)
+			return ((char *)&s[i]);
+		i++;
+	}
+	return (0);
 }
 
 static char	*relocate_mem(char *str, char *buff)
@@ -96,7 +106,7 @@ char	*ft_get_line(char *lft_str)
 	return (result);
 }
 
-char	*ft_new_line(char *lft_str)
+ char	*ft_new_line(char *lft_str)
 {
 	int		i;
 	int		j;
@@ -119,7 +129,7 @@ char	*ft_new_line(char *lft_str)
 	j = 0;
 	while (lft_str[i])
 		result[j++] = lft_str[i++];
-	result[j] = '0';
+	result[j] = '\0';
 	free(lft_str);
 	return (result);
 }

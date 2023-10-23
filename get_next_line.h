@@ -6,7 +6,7 @@
 /*   By: akalican <akalican@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:45:28 by akalican          #+#    #+#             */
-/*   Updated: 2023/10/20 16:49:22 by akalican         ###   ########.fr       */
+/*   Updated: 2023/10/23 11:53:54 by akalican         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 # endif
 
 size_t	ft_strlen(char *str);
-char	*ft_strchr(const char *s, int c);
+char	*ft_strchr(char *s, int c);
 char	*ft_strjoin(char *lft_str, char *buff);
-char	*ft_new_line(char *lft_str)
+char	*ft_get_line(char *lft_str);
+char	*ft_new_line(char *lft_str);
 #endif
