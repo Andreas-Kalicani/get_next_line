@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andreasgjertsenkalicani <andreasgjertse    +#+  +:+       +#+        */
+/*   By: akalican <akalican@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:18:56 by akalican          #+#    #+#             */
-/*   Updated: 2023/10/23 16:36:13 by andreasgjer      ###   ########.fr       */
+/*   Updated: 2023/10/24 14:13:35 by akalican         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <unistd.h>
-
 #include <fcntl.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 char	*ft_read_str(int fd, char *lft_str)
 {
@@ -49,20 +49,92 @@ char	*get_next_line(int fd)
 		return (0);
 	left_str = ft_read_str(fd, left_str);
 	if (!left_str)
+	{
+		free(left_str);
 		return (NULL);
+	}
 	line = ft_get_line(left_str);
 	left_str = ft_new_line(left_str);
 	return (line);
 }
+/*
+char	*ft_new_line(char *lft_str)
+{
+	int		i;
+	int		j;
+	char	*result;
 
-int	main(void)
+	i = 0;
+	while (lft_str[i] && lft_str[i] != '\n')
+		i++;
+	if (!lft_str[i])
+	{
+		free(lft_str);
+		return (NULL);
+	}
+	result = (char *)malloc(sizeof(char) * (ft_strlen(lft_str) - i + 1));
+	if (!result)
+	{
+		free(lft_str);
+		return (NULL);
+	}
+	i++;
+	j = 0;
+	while (lft_str[i])
+		result[j++] = lft_str[i++];
+	result[j] = '\0';
+	free(lft_str);
+	return (result);
+}
+*/
+
+char	*ft_strsub(char const *s, unsigned int start, size_t len)
+{
+	char	*str;
+	size_t	i;
+
+	if (!s)
+		return (NULL);
+	str = (char *)malloc(len + 1);
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		str[i] = s[start + i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
+}
+
+char	*ft_new_line(char *lft_str)
+{
+	int		i;
+	char	*result;
+
+	i = 0;
+	while (lft_str[i] && lft_str[i] != '\n')
+		i++;
+	if (!lft_str[i])
+	{
+		free(lft_str);
+		return (NULL);
+	}
+	result = ft_strsub(lft_str, i + 1, ft_strlen(lft_str) - i);
+	free(lft_str);
+	return (result);
+}
+
+/* int	main(void)
 {
 	char	*line;
 	int		i;
 	int		fd1;
+
 	fd1 = open("tests/hello.txt", O_RDONLY);
 	i = 1;
-	while (i < 2)
+	while (i < 6)
 	{
 		line = get_next_line(fd1);
 		printf("line [%02d]: %s", i, line);
@@ -71,3 +143,4 @@ int	main(void)
 	}
 	close(fd1);
 }
+*/
