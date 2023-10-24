@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akalican <akalican@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andreasgjertsenkalicani <andreasgjertse    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:30:53 by akalican          #+#    #+#             */
-/*   Updated: 2023/10/23 11:57:24 by akalican         ###   ########.fr       */
+/*   Updated: 2023/10/23 16:53:19 by andreasgjer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,23 @@ char	*ft_strjoin(char *lft_str, char *buff)
 	size_t	i;
 	size_t	j;
 
+	if (!lft_str)
+	{
+		lft_str = (char *)malloc(1 * sizeof(char));
+		lft_str[0] = '\0';
+	}
 	if (!lft_str || !buff)
 		return (NULL);
 	result = relocate_mem(lft_str, buff);
 	if (!result)
 		return (NULL);
 	i = 0;
+	j = 0;
 	while (lft_str[i] != '\0')
 	{
 		result[i] = lft_str[i];
 		i++;
 	}
-	j = 0;
 	while (buff[j] != '\0')
 	{
 		result[i] = buff[j];
@@ -77,6 +82,9 @@ char	*ft_strjoin(char *lft_str, char *buff)
 	result[i] = '\0';
 	return (result);
 }
+
+
+
 
 char	*ft_get_line(char *lft_str)
 {

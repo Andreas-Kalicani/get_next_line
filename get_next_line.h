@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akalican <akalican@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andreasgjertsenkalicani <andreasgjertse    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:45:28 by akalican          #+#    #+#             */
-/*   Updated: 2023/10/23 11:53:54 by akalican         ###   ########.fr       */
+/*   Updated: 2023/10/23 19:18:38 by andreasgjer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,5 @@ char	*ft_strchr(char *s, int c);
 char	*ft_strjoin(char *lft_str, char *buff);
 char	*ft_get_line(char *lft_str);
 char	*ft_new_line(char *lft_str);
+
 #endif
