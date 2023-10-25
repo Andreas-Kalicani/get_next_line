@@ -6,7 +6,7 @@
 /*   By: akalican <akalican@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:18:56 by akalican          #+#    #+#             */
-/*   Updated: 2023/10/24 14:13:35 by akalican         ###   ########.fr       */
+/*   Updated: 2023/10/25 14:23:47 by akalican         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 char	*ft_read_str(int fd, char *lft_str)
 {
 	char	*buff;
-	int		read_byt;
+	ssize_t	read_byt;
 
 	buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buff)
@@ -31,9 +31,10 @@ char	*ft_read_str(int fd, char *lft_str)
 		if (read_byt == -1)
 		{
 			free(buff);
+			buff = NULL;
 			return (NULL);
 		}
-		buff[read_byt] = '\0';
+		buff[read_byt] = 0;
 		lft_str = ft_strjoin(lft_str, buff);
 	}
 	free(buff);
@@ -45,7 +46,7 @@ char	*get_next_line(int fd)
 	char		*line;
 	static char	*left_str;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > MAX_FD)
 		return (0);
 	left_str = ft_read_str(fd, left_str);
 	if (!left_str)
@@ -57,7 +58,7 @@ char	*get_next_line(int fd)
 	left_str = ft_new_line(left_str);
 	return (line);
 }
-/*
+
 char	*ft_new_line(char *lft_str)
 {
 	int		i;
@@ -86,61 +87,17 @@ char	*ft_new_line(char *lft_str)
 	free(lft_str);
 	return (result);
 }
-*/
 
-char	*ft_strsub(char const *s, unsigned int start, size_t len)
-{
-	char	*str;
-	size_t	i;
-
-	if (!s)
-		return (NULL);
-	str = (char *)malloc(len + 1);
-	if (!str)
-		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		str[i] = s[start + i];
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
-}
-
-char	*ft_new_line(char *lft_str)
-{
-	int		i;
-	char	*result;
-
-	i = 0;
-	while (lft_str[i] && lft_str[i] != '\n')
-		i++;
-	if (!lft_str[i])
-	{
-		free(lft_str);
-		return (NULL);
-	}
-	result = ft_strsub(lft_str, i + 1, ft_strlen(lft_str) - i);
-	free(lft_str);
-	return (result);
-}
-
-/* int	main(void)
-{
-	char	*line;
-	int		i;
-	int		fd1;
-
-	fd1 = open("tests/hello.txt", O_RDONLY);
-	i = 1;
-	while (i < 6)
-	{
-		line = get_next_line(fd1);
-		printf("line [%02d]: %s", i, line);
-		free(line);
-		i++;
-	}
-	close(fd1);
-}
-*/
+// int	main(void)
+// {
+//    int fd1 = open("tests/hello.txt", O_RDONLY);
+//    int i = 1;
+//    while (i < 4)
+//    {
+// 		char *line = get_next_line(fd1);
+// 		printf("line [%02d]: %s", i, line);
+// 		free(line);
+// 		i++;
+//    }
+//    close(fd1);
+// }

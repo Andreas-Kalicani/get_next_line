@@ -6,18 +6,17 @@
 /*   By: akalican <akalican@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:45:28 by akalican          #+#    #+#             */
-/*   Updated: 2023/10/24 12:36:44 by akalican         ###   ########.fr       */
+/*   Updated: 2023/10/25 14:26:08 by akalican         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
+#  define BUFFER_SIZE 1000
 # endif
 
 size_t	ft_strlen(char *str);
