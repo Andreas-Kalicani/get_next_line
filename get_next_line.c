@@ -6,7 +6,7 @@
 /*   By: akalican <akalican@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:18:56 by akalican          #+#    #+#             */
-/*   Updated: 2023/10/25 14:23:47 by akalican         ###   ########.fr       */
+/*   Updated: 2023/10/26 14:58:07 by akalican         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ char	*ft_read_str(int fd, char *lft_str)
 		{
 			free(buff);
 			buff = NULL;
+			if (lft_str)
+				free(lft_str);
 			return (NULL);
 		}
 		buff[read_byt] = 0;
@@ -39,24 +41,6 @@ char	*ft_read_str(int fd, char *lft_str)
 	}
 	free(buff);
 	return (lft_str);
-}
-
-char	*get_next_line(int fd)
-{
-	char		*line;
-	static char	*left_str;
-
-	if (fd < 0 || BUFFER_SIZE <= 0 || fd > MAX_FD)
-		return (0);
-	left_str = ft_read_str(fd, left_str);
-	if (!left_str)
-	{
-		free(left_str);
-		return (NULL);
-	}
-	line = ft_get_line(left_str);
-	left_str = ft_new_line(left_str);
-	return (line);
 }
 
 char	*ft_new_line(char *lft_str)
@@ -88,16 +72,34 @@ char	*ft_new_line(char *lft_str)
 	return (result);
 }
 
-// int	main(void)
-// {
-//    int fd1 = open("tests/hello.txt", O_RDONLY);
-//    int i = 1;
-//    while (i < 4)
-//    {
-// 		char *line = get_next_line(fd1);
-// 		printf("line [%02d]: %s", i, line);
-// 		free(line);
-// 		i++;
-//    }
-//    close(fd1);
-// }
+char	*get_next_line(int fd)
+{
+	char		*line;
+	static char	*left_str;
+
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (0);
+	left_str = ft_read_str(fd, left_str);
+	if (!left_str)
+	{
+		free(left_str);
+		return (NULL);
+	}
+	line = ft_get_line(left_str);
+	left_str = ft_new_line(left_str);
+	return (line);
+}
+
+/*int	main(void)
+{
+   int fd1 = open("tests/hello.txt", O_RDONLY);
+   int i = 1;
+   while (i < 4)
+   {
+		char *line = get_next_line(fd1);
+		printf("line [%02d]: %s", i, line);
+		free(line);
+		i++;
+   }
+   close(fd1);
+} */
